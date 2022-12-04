@@ -14,3 +14,19 @@ ul,
 li {
   list-style-type: none;
 }
+
+#login-screen {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: orange;
+  z-index: 999;
+
+  transform: translateY(100%);
+}
+
+#login-screen.visible {
+  transform: translateY(0);
+}

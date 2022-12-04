@@ -1,5 +1,7 @@
 const listEl = document.querySelector("#list-test-data");
 const employeeSearchInput = document.querySelector("#input-employee-search");
+const btnLogin = document.querySelector("#btn-login");
+const loginScreen = document.querySelector("#login-screen");
 
 async function fetchAllEmployees() {
   try {
@@ -84,3 +86,7 @@ employeeSearchInput.addEventListener("change", (e) => {
 });
 // displayAllEmployees();
 // displaySpecificEmployees("Christopher");
+
+btnLogin.addEventListener("click", (e) => {
+  loginScreen.classList.toggle("visible");
+});
