@@ -10,6 +10,11 @@ const staticEmployeeData = [
     person_email_address: "charles@averyrealcompany.co",
   },
   {
+    person_name: { last_name: "Reed", first_name: "Martin" },
+    person_department: "QA",
+    person_email_address: "martin@averyrealcompany.co",
+  },
+  {
     person_name: { last_name: "Summer", first_name: "Donna" },
     person_department: "Executive",
     person_email_address: "donna@averyrealcompany.co",

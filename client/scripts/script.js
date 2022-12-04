@@ -1,4 +1,5 @@
 const listEl = document.querySelector("#list-test-data");
+const employeeSearchInput = document.querySelector("#input-employee-search");
 
 async function fetchAllEmployees() {
   try {
@@ -38,12 +39,22 @@ async function displayAllEmployees() {
 }
 
 async function displaySpecificEmployees(employeeName) {
+  clearResultsList();
+
   let data = await fetchSpecificEmployee(employeeName);
-  if (!data) return;
+  if (!data) {
+    listEl.innerHTML = `<li class="list-item-empty-result">No results found!</li>`;
+    return;
+  }
 
   data.forEach((result) => {
+    console.log("got result", result);
     addFetchedResultToList(result);
   });
+}
+
+function clearResultsList() {
+  listEl.innerHTML = "";
 }
 
 function addFetchedResultToList(result) {
@@ -68,5 +79,8 @@ function addFetchedResultToList(result) {
   });
 }
 
-displayAllEmployees();
-displaySpecificEmployees("Christopher");
+employeeSearchInput.addEventListener("change", (e) => {
+  displaySpecificEmployees(e.target.value);
+});
+// displayAllEmployees();
+// displaySpecificEmployees("Christopher");
