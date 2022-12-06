@@ -1,7 +1,13 @@
-const express = require("express");
-const app = express();
-const PORT = process.env.PORT || 7000;
+const app = require("express")();
+
+require("dotenv").config();
+
+const auth = require("express-basic-auth");
+const PORT = process.env.SERVER_PORT || 7000;
 const CORS = require("cors");
+
+const testUser = process.env.ADMIN_USERNAME;
+const testPass = process.env.ADMIN_PASSWORD;
 
 const staticEmployeeData = [
   {
@@ -27,6 +33,22 @@ const staticEmployeeData = [
 ];
 
 app.use(CORS({ origin: "*", methods: ["GET"] }));
+
+// IN THIS BASIC IMPLEMENTATION
+// USERNAMES AND PASSWORDS ARE DELEGATED BY SYSOP
+// SO THE FRONT END WON'T ACTUALLY HAVE A SIGN UP
+app.use(
+  auth({
+    users: { testUser: testPass },
+    unauthorizedResponse: handleUnauthorized,
+  })
+);
+
+function handleUnauthorized(req) {
+  req.auth
+    ? "Those credentials are incorrect"
+    : "Please provide the correct credentials";
+}
 
 app.get("/directory", (req, res) => {
   res.status(200).json(staticEmployeeData);
