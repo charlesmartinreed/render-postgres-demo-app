@@ -37,20 +37,17 @@ app.use(CORS({ origin: "*", methods: ["GET"] }));
 // IN THIS BASIC IMPLEMENTATION
 // USERNAMES AND PASSWORDS ARE DELEGATED BY SYSOP
 // SO THE FRONT END WON'T ACTUALLY HAVE A SIGN UP
-app.use(
-  auth({
-    users: { testUser: testPass },
-    unauthorizedResponse: handleUnauthorized,
-  })
-);
+const authCheck = auth({
+  users: { testUser: testPass },
+  unauthorizedResponse: handleUnauthorized,
+});
 
 function handleUnauthorized(req) {
-  req.auth
-    ? "Those credentials are incorrect"
-    : "Please provide the correct credentials";
+  // of course you could send a rendered HTML page here
+  return JSON.stringify({ msg: "Access Denied" });
 }
 
-app.get("/directory", (req, res) => {
+app.get("/directory", authCheck, (req, res) => {
   res.status(200).json(staticEmployeeData);
 });
 

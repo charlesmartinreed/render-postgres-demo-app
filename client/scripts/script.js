@@ -84,6 +84,7 @@ function addFetchedResultToList(result) {
 employeeSearchInput.addEventListener("change", (e) => {
   displaySpecificEmployees(e.target.value);
 });
+
 // displayAllEmployees();
 // displaySpecificEmployees("Christopher");
 
