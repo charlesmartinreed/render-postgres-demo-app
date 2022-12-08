@@ -39,15 +39,22 @@ app.use(CORS({ origin: "*", methods: ["GET"] }));
 // SO THE FRONT END WON'T ACTUALLY HAVE A SIGN UP
 const authCheck = auth({
   users: { testUser: testPass },
+  authorizer: (username, password) => {
+    return (
+      auth.safeCompare(username, testUser) &&
+      auth.safeCompare(password, testPass)
+    );
+  },
   unauthorizedResponse: handleUnauthorized,
 });
 
 function handleUnauthorized(req) {
+  console.log(req.auth);
   // of course you could send a rendered HTML page here
   return JSON.stringify({ msg: "Access Denied" });
 }
 
-app.get("/directory", authCheck, (req, res) => {
+app.get("/directory", authCheck, (req, res, next) => {
   res.status(200).json(staticEmployeeData);
 });
 

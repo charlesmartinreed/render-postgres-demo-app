@@ -1,7 +1,11 @@
 const listEl = document.querySelector("#list-test-data");
 const employeeSearchInput = document.querySelector("#input-employee-search");
 const btnLogin = document.querySelector("#btn-login");
+const inputForUsername = document.querySelector("#login-username");
+const inputForPass = document.querySelector("#login-password");
 const loginScreen = document.querySelector("#login-screen");
+
+const baseRemoteURL = "http://localhost:7000";
 
 async function fetchAllEmployees() {
   try {
@@ -88,6 +92,20 @@ employeeSearchInput.addEventListener("change", (e) => {
 // displayAllEmployees();
 // displaySpecificEmployees("Christopher");
 
-btnLogin.addEventListener("click", (e) => {
+btnLogin.addEventListener("click", async (e) => {
+  if (inputForPass.textContent === "" || inputForUsername.textContent === "")
+    return;
+
+  try {
+    let URL = `${baseRemoteURL}/directory`;
+    let res = await fetch(URL, {
+      method: "POST",
+      headers: {
+        'Authorization': `Basic`
+      }
+    });
+  } catch (e) {
+    console.error(e);
+  }
   loginScreen.classList.toggle("visible");
 });
