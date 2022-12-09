@@ -1,8 +1,13 @@
 const listEl = document.querySelector("#list-test-data");
+const listAdminEl = document.querySelector("#list-admin-test-data");
+
+const btnLoginToggle = document.querySelector("#btn-login");
+const btnLoginSubmit = document.querySelector("#btn-submit-login");
+
 const employeeSearchInput = document.querySelector("#input-employee-search");
-const btnLogin = document.querySelector("#btn-login");
 const inputForUsername = document.querySelector("#login-username");
 const inputForPass = document.querySelector("#login-password");
+
 const loginScreen = document.querySelector("#login-screen");
 
 const baseRemoteURL = "http://localhost:7000";
@@ -37,13 +42,6 @@ async function fetchSpecificEmployee(employeeName) {
   }
 }
 
-async function displayAllEmployees() {
-  let data = await fetchAllEmployees();
-  data.forEach((result) => {
-    addFetchedResultToList(result);
-  });
-}
-
 async function displaySpecificEmployees(employeeName) {
   clearResultsList();
 
@@ -55,7 +53,7 @@ async function displaySpecificEmployees(employeeName) {
 
   data.forEach((result) => {
     console.log("got result", result);
-    addFetchedResultToList(result);
+    addFetchedResultToList(listEl, result);
   });
 }
 
@@ -63,7 +61,7 @@ function clearResultsList() {
   listEl.innerHTML = "";
 }
 
-function addFetchedResultToList(result) {
+function addFetchedResultToList(list, result) {
   let {
     person_name: { last_name, first_name },
     person_department,
@@ -81,7 +79,7 @@ function addFetchedResultToList(result) {
 
   [nameListItem, departmentListItem, emailListItem].forEach((item) => {
     item.classList = "list-item-data-result";
-    listEl.appendChild(item);
+    list.appendChild(item);
   });
 }
 
@@ -89,23 +87,50 @@ employeeSearchInput.addEventListener("change", (e) => {
   displaySpecificEmployees(e.target.value);
 });
 
-// displayAllEmployees();
-// displaySpecificEmployees("Christopher");
+btnLoginToggle.addEventListener("click", (e) => {
+  loginScreen.classList.toggle("visible");
+});
 
-btnLogin.addEventListener("click", async (e) => {
-  if (inputForPass.textContent === "" || inputForUsername.textContent === "")
-    return;
+btnLoginSubmit.addEventListener("click", async (e) => {
+  let username = inputForUsername.value;
+  let password = inputForPass.value;
+
+  if (username === "" || password === "") return;
+
+  console.log(username, password);
 
   try {
     let URL = `${baseRemoteURL}/directory`;
     let res = await fetch(URL, {
-      method: "POST",
+      method: "GET",
+      "Content-Type": "application/json",
       headers: {
-        'Authorization': `Basic`
-      }
+        Authorization: `Basic ${username}:${password}`,
+      },
     });
+
+    // if (res.status !== 200) {
+    //   let data = await res.json();
+    //   // TODO: replace this with a modal
+    //   alert(`${data.msg}`);
+    //   return;
+    // }
+
+    if (res.status === 200) {
+      let data = await res.json();
+      data.forEach((result) => {
+        addFetchedResultToList(listAdminEl, result);
+      });
+    }
   } catch (e) {
     console.error(e);
   }
-  loginScreen.classList.toggle("visible");
 });
+
+// function init() {
+//   btnLoginToggle.textContent = loginScreen.classList.contains("visible")
+//     ? "Logout"
+//     : "Login";
+// }
+
+// init();

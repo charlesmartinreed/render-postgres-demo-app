@@ -32,7 +32,7 @@ const staticEmployeeData = [
   },
 ];
 
-app.use(CORS({ origin: "*", methods: ["GET"] }));
+app.use(CORS({ origin: "*" }));
 
 // IN THIS BASIC IMPLEMENTATION
 // USERNAMES AND PASSWORDS ARE DELEGATED BY SYSOP
@@ -40,6 +40,7 @@ app.use(CORS({ origin: "*", methods: ["GET"] }));
 const authCheck = auth({
   users: { testUser: testPass },
   authorizer: (username, password) => {
+    console.log("success", username, password);
     return (
       auth.safeCompare(username, testUser) &&
       auth.safeCompare(password, testPass)
@@ -49,12 +50,11 @@ const authCheck = auth({
 });
 
 function handleUnauthorized(req) {
-  console.log(req.auth);
   // of course you could send a rendered HTML page here
   return JSON.stringify({ msg: "Access Denied" });
 }
 
-app.get("/directory", authCheck, (req, res, next) => {
+app.get("/directory", authCheck, (req, res) => {
   res.status(200).json(staticEmployeeData);
 });
 
