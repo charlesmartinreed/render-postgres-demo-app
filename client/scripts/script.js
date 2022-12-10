@@ -52,7 +52,6 @@ async function displaySpecificEmployees(employeeName) {
   }
 
   data.forEach((result) => {
-    console.log("got result", result);
     addFetchedResultToList(listEl, result);
   });
 }
@@ -97,7 +96,7 @@ btnLoginSubmit.addEventListener("click", async (e) => {
 
   if (username === "" || password === "") return;
 
-  console.log(username, password);
+  let encodedAuthCredentials = encodeToBase64(`${username}:${password}`);
 
   try {
     let URL = `${baseRemoteURL}/directory`;
@@ -105,16 +104,17 @@ btnLoginSubmit.addEventListener("click", async (e) => {
       method: "GET",
       "Content-Type": "application/json",
       headers: {
-        Authorization: `Basic ${username}:${password}`,
+        Authorization: `Basic ${encodedAuthCredentials}`,
       },
     });
 
-    // if (res.status !== 200) {
-    //   let data = await res.json();
-    //   // TODO: replace this with a modal
-    //   alert(`${data.msg}`);
-    //   return;
-    // }
+    if (res.status !== 200) {
+      let data = await res.json();
+
+      // TODO: replace this with a modal
+      alert(`${data.msg}`);
+      return;
+    }
 
     if (res.status === 200) {
       let data = await res.json();
@@ -127,10 +127,6 @@ btnLoginSubmit.addEventListener("click", async (e) => {
   }
 });
 
-// function init() {
-//   btnLoginToggle.textContent = loginScreen.classList.contains("visible")
-//     ? "Logout"
-//     : "Login";
-// }
-
-// init();
+function encodeToBase64(unencodedValue) {
+  return btoa(unencodedValue);
+}

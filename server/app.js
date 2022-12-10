@@ -40,7 +40,6 @@ app.use(CORS({ origin: "*" }));
 const authCheck = auth({
   users: { testUser: testPass },
   authorizer: (username, password) => {
-    console.log("success", username, password);
     return (
       auth.safeCompare(username, testUser) &&
       auth.safeCompare(password, testPass)
