@@ -8,7 +8,7 @@ const employeeSearchInput = document.querySelector("#input-employee-search");
 const inputForUsername = document.querySelector("#login-username");
 const inputForPass = document.querySelector("#login-password");
 
-const loginScreen = document.querySelector("#login-screen");
+const loginModal = document.querySelector("#login-modal");
 
 const baseRemoteURL = "http://localhost:7000";
 
@@ -87,8 +87,14 @@ employeeSearchInput.addEventListener("change", (e) => {
 });
 
 btnLoginToggle.addEventListener("click", (e) => {
-  loginScreen.classList.toggle("visible");
+  toggleModal(loginModal);
+  // loginModal.classList.toggle("visible");
 });
+
+function toggleModal(modal) {
+  modal.classList.toggle("displaying");
+  console.log(modal.classList);
+}
 
 btnLoginSubmit.addEventListener("click", async (e) => {
   let username = inputForUsername.value;
