@@ -26,11 +26,11 @@ li {
   border-radius: 3px;
 }
 
-.modal {
+/* .modal {
   transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
+} */
 
-.modal#login-modal {
+.modal {
   width: 20vw;
   height: 40vh;
   position: absolute;
@@ -44,6 +44,8 @@ li {
   color: #fff;
   box-shadow: -8px -8px 12px rgba(0, 0, 0, 0.5);
   z-index: 999;
+
+  transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .modal .modal-contents {
@@ -56,6 +58,6 @@ li {
   gap: 1rem;
 }
 
-.modal#login-modal.displaying {
+.modal.displaying {
   transform: translate(-50%, -50%) scale(1);
 }

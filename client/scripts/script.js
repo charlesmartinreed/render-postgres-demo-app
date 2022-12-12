@@ -91,9 +91,23 @@ btnLoginToggle.addEventListener("click", (e) => {
   // loginModal.classList.toggle("visible");
 });
 
+function displayAlert(msg) {
+  let alertDiv = document.createElement("div");
+  alertDiv.classList = `modal alert-modal visible`;
+
+  alertDiv.textContent = msg;
+
+  let closeBtn = document.createElement("button");
+  closeBtn.type = "submit";
+  closeBtn.textContent = "OK";
+
+  closeBtn.addEventListener("click", () => {
+    alertDiv.classList.toggle("visible");
+  });
+}
+
 function toggleModal(modal) {
   modal.classList.toggle("displaying");
-  console.log(modal.classList);
 }
 
 btnLoginSubmit.addEventListener("click", async (e) => {
