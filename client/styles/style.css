@@ -40,6 +40,9 @@ li {
   transform: translate(-50%, -50%) scale(0);
   padding: 2rem;
 
+  text-align: center;
+  font-size: 1.2rem;
+
   background-color: rgba(25, 25, 25, 1);
   color: #fff;
   box-shadow: -8px -8px 12px rgba(0, 0, 0, 0.5);
@@ -56,6 +59,18 @@ li {
   height: 100%;
   width: 100%;
   gap: 1rem;
+}
+
+.modal .modal-close-btn,
+.modal .modal-submit-btn {
+  width: 8rem;
+  height: 3rem;
+  padding: 9px;
+  border-radius: 9px;
+  background-color: transparent;
+  border: 1px solid #fff;
+  color: #fff;
+  cursor: pointer;
 }
 
 .modal.displaying {

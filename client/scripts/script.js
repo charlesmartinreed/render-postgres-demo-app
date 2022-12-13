@@ -88,21 +88,30 @@ employeeSearchInput.addEventListener("change", (e) => {
 
 btnLoginToggle.addEventListener("click", (e) => {
   toggleModal(loginModal);
-  // loginModal.classList.toggle("visible");
 });
 
 function displayAlert(msg) {
-  let alertDiv = document.createElement("div");
-  alertDiv.classList = `modal alert-modal visible`;
+  console.log("displaying alert", msg);
 
+  let alertDiv = document.createElement("div");
+  alertDiv.classList.add("modal", "alert-modal", "displaying");
   alertDiv.textContent = msg;
 
+  let alertDivContents = document.createElement("div");
+  alertDivContents.classList.add("modal-contents");
+
   let closeBtn = document.createElement("button");
+  closeBtn.classList.add("modal-close-btn");
   closeBtn.type = "submit";
   closeBtn.textContent = "OK";
 
+  alertDivContents.appendChild(closeBtn);
+  alertDiv.appendChild(alertDivContents);
+
+  document.querySelector("body").appendChild(alertDiv);
+
   closeBtn.addEventListener("click", () => {
-    alertDiv.classList.toggle("visible");
+    alertDiv.classList.toggle("displaying");
   });
 }
 
@@ -132,7 +141,7 @@ btnLoginSubmit.addEventListener("click", async (e) => {
       let data = await res.json();
 
       // TODO: replace this with a modal
-      alert(`${data.msg}`);
+      displayAlert(`${data.msg}`);
       return;
     }
 
@@ -144,6 +153,8 @@ btnLoginSubmit.addEventListener("click", async (e) => {
     }
   } catch (e) {
     console.error(e);
+  } finally {
+    toggleModal(loginModal);
   }
 });
 
