@@ -158,6 +158,13 @@ btnLoginSubmit.addEventListener("click", async (e) => {
   }
 });
 
+document.querySelector("body").addEventListener("click", (e) => {
+  if (e.target.classList === btnLoginToggle.classList) return;
+  if (loginModal.classList.contains("displaying")) {
+    toggleModal(loginModal);
+  }
+});
+
 function encodeToBase64(unencodedValue) {
   return btoa(unencodedValue);
 }
