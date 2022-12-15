@@ -86,10 +86,6 @@ employeeSearchInput.addEventListener("change", (e) => {
   displaySpecificEmployees(e.target.value);
 });
 
-btnLoginToggle.addEventListener("click", (e) => {
-  toggleModal(loginModal);
-});
-
 function displayAlert(msg) {
   console.log("displaying alert", msg);
 
@@ -159,10 +155,35 @@ btnLoginSubmit.addEventListener("click", async (e) => {
 });
 
 document.querySelector("body").addEventListener("click", (e) => {
-  if (e.target.classList === btnLoginToggle.classList) return;
+  // TODO: make this adaptive to the displayed modal, not just the login modal
+  let modalChildren = Array.from(loginModal.children);
+
+  if (
+    e.target.matches(".modal-contents") ||
+    e.target.matches(".modal.displaying") ||
+    modalChildren.includes(e.target)
+  ) {
+    console.log("inner modal clicked");
+    console.log("is child or loginModal itself");
+    return;
+  }
+  
+  if (e.target.matches("#btn-login")) {
+    console.log("login area clicked");
+    toggleModal(loginModal);
+    return;
+  }
+
   if (loginModal.classList.contains("displaying")) {
+    console.log("body or body element clicked");
     toggleModal(loginModal);
   }
+
+  // if (e.target.classList !== btnLoginToggle.classList) {
+  //   if (loginModal.classList.contains("displaying")) {
+  //     toggleModal(loginModal);
+  //   }
+  // }
 });
 
 function encodeToBase64(unencodedValue) {
