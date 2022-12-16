@@ -149,8 +149,6 @@ btnLoginSubmit.addEventListener("click", async (e) => {
     }
   } catch (e) {
     console.error(e);
-  } finally {
-    toggleModal(loginModal);
   }
 });
 
@@ -167,10 +165,15 @@ document.querySelector("body").addEventListener("click", (e) => {
     console.log("is child or loginModal itself");
     return;
   }
-  
+
   if (e.target.matches("#btn-login")) {
     console.log("login area clicked");
     toggleModal(loginModal);
+    return;
+  }
+
+  if (e.target.matches("input")) {
+    console.log("input area clicked");
     return;
   }
 
