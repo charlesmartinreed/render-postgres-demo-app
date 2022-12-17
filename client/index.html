@@ -11,35 +11,45 @@
   <body>
     <div id="page-container">
       <div class="page-divider" id="page-divider-left-side">
-        <div class="container-employee-search">
-          <label for="input-employee-search"
-            >Search the Employee Database</label
-          >
+        <div class="employee-search-input-container">
           <input
             type="text"
             id="input-employee-search"
             name="input-employee-search"
+            placeholder="Search by Employee Name..."
           />
+        </div>
+        <div class="employee-search-results-container">
+          <ul id="list-test-data">
+            <!-- fetched results dynamically inserted here -->
+          </ul>
         </div>
       </div>
       <div class="page-divider" id="page-divider-right-side">
         <button id="btn-login">Login</button>
+        <div class="input-container">
+          <!-- <label for="login-username">User</label> -->
+          <input
+            type="text"
+            id="login-username"
+            name="login-username"
+            placeholder="Username"
+          />
+          <!-- <label for="login-password">Password</label> -->
+          <input
+            type="password"
+            id="login-password"
+            name="login-password"
+            placeholder="Password"
+          />
+          <button id="btn-submit-login" class="modal-submit-btn" type="submit">
+            Submit
+          </button>
+        </div>
       </div>
     </div>
 
-    <h1>Employee Database Search Results:</h1>
-    <ul id="list-test-data"></ul>
-    <div class="modal" id="login-modal">
-      <div class="modal-contents">
-        <label for="login-username">User</label>
-        <input type="text" id="login-username" name="login-username" />
-        <label for="login-password">Password</label>
-        <input type="password" id="login-password" name="login-password" />
-        <button id="btn-submit-login" class="modal-submit-btn" type="submit">
-          Submit
-        </button>
-      </div>
-    </div>
-    <ul id="list-admin-test-data"></ul>
+    <!-- <div class="modal" id="login-modal"></div> -->
+    <!-- <ul id="list-admin-test-data"></ul> -->
   </body>
 </html>
