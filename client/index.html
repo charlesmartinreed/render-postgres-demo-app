@@ -9,20 +9,26 @@
     <title>Render / Postgres-backend Demo App</title>
   </head>
   <body>
-    <h1>Hello World 👋</h1>
-
-    <div class="container-employee-search">
-      <label for="input-employee-search">Search the Employee Database</label>
-      <input
-        type="text"
-        id="input-employee-search"
-        name="input-employee-search"
-      />
+    <div id="page-container">
+      <div class="page-divider" id="page-divider-left-side">
+        <div class="container-employee-search">
+          <label for="input-employee-search"
+            >Search the Employee Database</label
+          >
+          <input
+            type="text"
+            id="input-employee-search"
+            name="input-employee-search"
+          />
+        </div>
+      </div>
+      <div class="page-divider" id="page-divider-right-side">
+        <button id="btn-login">Login</button>
+      </div>
     </div>
 
     <h1>Employee Database Search Results:</h1>
     <ul id="list-test-data"></ul>
-    <button id="btn-login">Login</button>
     <div class="modal" id="login-modal">
       <div class="modal-contents">
         <label for="login-username">User</label>
