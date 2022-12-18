@@ -30,14 +30,14 @@ html {
 }
 
 #page-divider-left-side {
-  background-color: red;
+  /* background-color: red; */
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: 10% 90%;
 }
 
 #page-divider-right-side {
-  background-color: purple;
+  /* background-color: purple; */
 }
 
 ul,
@@ -92,6 +92,38 @@ li {
 
 .employee-search-results-container {
   /* background-color: blue; */
+}
+
+.employee-group-container {
+  min-height: 200px;
+  display: grid;
+  grid-template-columns: 5% 95%;
+  gap: 2rem;
+  grid-template-rows: auto;
+  width: 100%;
+  padding-left: 1rem;
+}
+
+.employee-group-letter-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.employee-group-letter::before {
+  display: block;
+  content: attr(data-letter);
+  color: inherit;
+  font-size: 6rem;
+  font-weight: 800;
+}
+
+.employee-group-listings {
+  /* padding: 1rem;  */
+}
+
+.employee-group-listings .employee-listing {
+  margin: 2rem;
 }
 
 .input-container {
