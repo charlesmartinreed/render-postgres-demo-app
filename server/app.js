@@ -57,6 +57,18 @@ app.get("/directory", authCheck, (req, res) => {
   res.status(200).json(staticEmployeeData);
 });
 
+app.get("/directory/:letterMatch", (req, res) => {
+  let queryLetter = req.params.letterMatch;
+
+  let results = staticEmployeeData.filter(
+    ({ person_name }) =>
+      person_name.last_name.slice(0).toLowerCase() ===
+      letterMatch.slice(0).toLowerCase()
+  );
+
+  res.status(200).json(results);
+});
+
 app.get("/directory/:employee", (req, res) => {
   let nameParam = req.params.employee;
 
