@@ -4,6 +4,7 @@ const listAdminEl = document.querySelector("#list-admin-test-data");
 const btnLoginToggle = document.querySelector("#btn-login");
 const btnLoginSubmit = document.querySelector("#btn-submit-login");
 
+const employeeListingLinks = document.querySelectorAll(".employee-listing");
 const employeeSearchInput = document.querySelector("#input-employee-search");
 const inputForUsername = document.querySelector("#login-username");
 const inputForPass = document.querySelector("#login-password");
@@ -11,6 +12,13 @@ const inputForPass = document.querySelector("#login-password");
 const loginModal = document.querySelector("#login-modal");
 
 const baseRemoteURL = "http://localhost:7000";
+
+async function init() {
+  let names = await fetchAllEmployees();
+
+  if (names) {
+  }
+}
 
 async function fetchAllEmployees() {
   try {
