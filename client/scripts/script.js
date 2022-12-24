@@ -4,7 +4,9 @@ const listAdminEl = document.querySelector("#list-admin-test-data");
 const btnLoginToggle = document.querySelector("#btn-login");
 const btnLoginSubmit = document.querySelector("#btn-submit-login");
 
-const employeeListingLinks = document.querySelectorAll(".employee-listing");
+const employeeListingContainers =
+  document.querySelectorAll(".employee-listing");
+
 const employeeSearchInput = document.querySelector("#input-employee-search");
 const inputForUsername = document.querySelector("#login-username");
 const inputForPass = document.querySelector("#login-password");
@@ -17,6 +19,7 @@ async function init() {
   let names = await fetchAllEmployees();
 
   if (names) {
+    console.log("all names", names);
   }
 }
 
@@ -28,6 +31,7 @@ async function fetchAllEmployees() {
     return data;
   } catch (e) {
     console.error(`Oh no, we couldn't fetch the data for all employees!`);
+    return null;
   }
 }
 
@@ -90,9 +94,9 @@ function addFetchedResultToList(list, result) {
   });
 }
 
-employeeSearchInput.addEventListener("change", (e) => {
-  displaySpecificEmployees(e.target.value);
-});
+// employeeSearchInput.addEventListener("change", (e) => {
+//   displaySpecificEmployees(e.target.value);
+// });
 
 function displayAlert(msg) {
   console.log("displaying alert", msg);
@@ -200,3 +204,5 @@ document.querySelector("body").addEventListener("click", (e) => {
 function encodeToBase64(unencodedValue) {
   return btoa(unencodedValue);
 }
+
+init();

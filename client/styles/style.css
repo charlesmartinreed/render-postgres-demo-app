@@ -105,17 +105,19 @@ li {
   border-radius: 3px;
 }
 
-.employee-group-container:nth-of-type(odd) .employee-group-letter-container {
+.employee-search-results-container:nth-of-type(odd)
+  .employee-group-letter-container {
   background-color: var(--color-black-main);
 }
 
-.employee-group-container:nth-of-type(even) .employee-group-letter-container {
+.employee-search-results-container:nth-of-type(even):nth-of-type(even)
+  .employee-group-letter-container {
   background: var(--color-black-alt);
 }
 
 .employee-group-letter::before {
   display: block;
-  content: attr(data-letter);
+  content: attr(data-group-letter);
   color: var(--color-white-alt);
   font-size: 6rem;
   font-weight: 800;

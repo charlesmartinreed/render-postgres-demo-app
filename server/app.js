@@ -53,7 +53,7 @@ function handleUnauthorized(req) {
   return JSON.stringify({ msg: "Access Denied" });
 }
 
-app.get("/directory", authCheck, (req, res) => {
+app.get("/directory", (req, res) => {
   res.status(200).json(staticEmployeeData);
 });
 
