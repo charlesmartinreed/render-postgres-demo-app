@@ -12,23 +12,35 @@ const testPass = process.env.ADMIN_PASSWORD;
 const staticEmployeeData = [
   {
     person_name: { last_name: "Reed", first_name: "Charles" },
-    person_department: "Engineering",
-    person_email_address: "charles@averyrealcompany.co",
+    department: "Engineering",
+    email_address: "charles@averyrealcompany.co",
+    phone_number: "111-222-3333",
+    start_date: "7/01/2018",
+    last_updated_date: null,
   },
   {
     person_name: { last_name: "Reed", first_name: "Martin" },
-    person_department: "QA",
-    person_email_address: "martin@averyrealcompany.co",
+    department: "QA",
+    email_address: "martin@averyrealcompany.co",
+    phone_number: "111-222-3333",
+    start_date: "6/15/2020",
+    last_updated_date: null,
   },
   {
     person_name: { last_name: "Summer", first_name: "Donna" },
-    person_department: "Executive",
-    person_email_address: "donna@averyrealcompany.co",
+    department: "Executive",
+    email_address: "donna@averyrealcompany.co",
+    phone_number: "111-222-3333",
+    start_date: "3/22/2013",
+    last_updated_date: null,
   },
   {
     person_name: { last_name: "Lee", first_name: "Christopher" },
-    person_department: "Human Resources",
-    person_email_address: "christopher@averyrealcompany.co",
+    department: "Human Resources",
+    email_address: "christopher@averyrealcompany.co",
+    phone_number: "111-222-3333",
+    start_date: "7/01/2018",
+    last_updated_date: null,
   },
 ];
 
