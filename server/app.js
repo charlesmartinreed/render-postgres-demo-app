@@ -1,5 +1,5 @@
 const app = require("express")();
-
+const { v4: uuidv4 } = require("uuid");
 require("dotenv").config();
 
 const auth = require("express-basic-auth");
@@ -12,6 +12,7 @@ const testPass = process.env.ADMIN_PASSWORD;
 const staticEmployeeData = [
   {
     person_name: { last_name: "Reed", first_name: "Charles" },
+    employee_id: uuidv4(),
     department: "Engineering",
     email_address: "charles@averyrealcompany.co",
     phone_number: "111-222-3333",
@@ -21,6 +22,7 @@ const staticEmployeeData = [
   {
     person_name: { last_name: "Reed", first_name: "Martin" },
     department: "QA",
+    employee_id: uuidv4(),
     email_address: "martin@averyrealcompany.co",
     phone_number: "111-222-3333",
     start_date: "6/15/2020",
@@ -28,6 +30,7 @@ const staticEmployeeData = [
   },
   {
     person_name: { last_name: "Summer", first_name: "Donna" },
+    employee_id: uuidv4(),
     department: "Executive",
     email_address: "donna@averyrealcompany.co",
     phone_number: "111-222-3333",
@@ -36,6 +39,7 @@ const staticEmployeeData = [
   },
   {
     person_name: { last_name: "Lee", first_name: "Christopher" },
+    employee_id: uuidv4(),
     department: "Human Resources",
     email_address: "christopher@averyrealcompany.co",
     phone_number: "111-222-3333",
