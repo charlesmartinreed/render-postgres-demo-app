@@ -15,7 +15,7 @@ const staticEmployeeData = [
     employee_id: uuidv4(),
     department: "Engineering",
     email_address: "charles@averyrealcompany.co",
-    phone_number: "111-222-3333",
+    phone_number: generateNewPhoneNumber(),
     start_date: "7/01/2018",
     last_updated_date: null,
   },
@@ -24,7 +24,7 @@ const staticEmployeeData = [
     department: "QA",
     employee_id: uuidv4(),
     email_address: "martin@averyrealcompany.co",
-    phone_number: "111-222-3333",
+    phone_number: generateNewPhoneNumber(),
     start_date: "6/15/2020",
     last_updated_date: null,
   },
@@ -33,7 +33,7 @@ const staticEmployeeData = [
     employee_id: uuidv4(),
     department: "Executive",
     email_address: "donna@averyrealcompany.co",
-    phone_number: "111-222-3333",
+    phone_number: generateNewPhoneNumber(),
     start_date: "3/22/2013",
     last_updated_date: null,
   },
@@ -42,7 +42,7 @@ const staticEmployeeData = [
     employee_id: uuidv4(),
     department: "Human Resources",
     email_address: "christopher@averyrealcompany.co",
-    phone_number: "111-222-3333",
+    phone_number: generateNewPhoneNumber(),
     start_date: "7/01/2018",
     last_updated_date: null,
   },
@@ -65,9 +65,32 @@ const authCheck = auth({
 });
 
 function handleUnauthorized(req) {
-  // of course you could send a rendered HTML page here
   return JSON.stringify({ msg: "Access Denied" });
 }
+
+function generateNewPhoneNumber() {
+  let numberGroups = [
+    returnRandomNumbers(3),
+    returnRandomNumbers(3),
+    returnRandomNumbers(4),
+  ];
+
+  return numberGroups.map((group) => group.join("")).join("-");
+}
+
+function returnRandomNumbers(count, min = 0, max = 9) {
+  let values = [];
+  let value;
+
+  for (let i = 0; i < count; i++) {
+    value = Math.floor(Math.random() * (max - min) + min);
+    values.push(value);
+  }
+
+  return values;
+}
+
+generateNewPhoneNumber();
 
 app.get("/directory", (req, res) => {
   res.status(200).json(staticEmployeeData);
