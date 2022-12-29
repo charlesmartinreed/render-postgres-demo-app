@@ -70,15 +70,15 @@ function handleUnauthorized(req) {
 
 function generateNewPhoneNumber() {
   let numberGroups = [
-    returnRandomNumbers(3),
-    returnRandomNumbers(3),
-    returnRandomNumbers(4),
+    returnRandomPhoneNumberSegment(3),
+    returnRandomPhoneNumberSegment(3),
+    returnRandomPhoneNumberSegment(4),
   ];
 
   return numberGroups.map((group) => group.join("")).join("-");
 }
 
-function returnRandomNumbers(count, min = 0, max = 9) {
+function returnRandomPhoneNumberSegment(count, min = 0, max = 9) {
   let values = [];
   let value;
 
@@ -96,25 +96,11 @@ app.get("/directory", (req, res) => {
   res.status(200).json(staticEmployeeData);
 });
 
-app.get("/directory/:letterMatch", (req, res) => {
-  let queryLetter = req.params.letterMatch;
-
-  let results = staticEmployeeData.filter(
-    ({ person_name }) =>
-      person_name.last_name.slice(0).toLowerCase() ===
-      letterMatch.slice(0).toLowerCase()
-  );
-
-  res.status(200).json(results);
-});
-
-app.get("/directory/:employee", (req, res) => {
-  let nameParam = req.params.employee;
+app.get("/directory/:employeeID", (req, res) => {
+  let nameParam = req.params.employeeID;
 
   let result = staticEmployeeData.filter(
-    ({ person_name }) =>
-      person_name.last_name.toLowerCase() === nameParam.toLowerCase() ||
-      person_name.first_name.toLowerCase() === nameParam.toLowerCase()
+    (person) => person.employee_id === nameParam
   );
 
   res.status(200).json(result);
