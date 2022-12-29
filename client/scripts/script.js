@@ -7,6 +7,10 @@ const btnLoginSubmit = document.querySelector("#btn-submit-login");
 const employeeListingContainers =
   document.querySelectorAll(".employee-listing");
 
+const employeeResultDividerDiv = document.querySelector(
+  "#page-divider-left-side"
+);
+
 const employeeSearchInput = document.querySelector("#input-employee-search");
 const inputForUsername = document.querySelector("#login-username");
 const inputForPass = document.querySelector("#login-password");
@@ -19,8 +23,41 @@ async function init() {
   let names = await fetchAllEmployees();
 
   if (names) {
-    console.log("all names", names);
+    // console.log("all names", names);
+    setupContainers(names);
   }
+}
+
+function setupContainers(nameList) {
+  console.log("names", nameList);
+
+  let letters = Array.from(
+    new Set(nameList.map((n) => n.person_name.last_name.slice(0, 1)))
+  );
+
+  for (let name of nameList) {
+    let {
+      person_name: { last_name, first_name },
+      employee_id,
+    } = name;
+
+    let letter = last_name.slice(0, 1);
+    employeeResultDividerDiv.innerHTML += `
+    <div class="employee-search-results-container">
+          <div class="employee-group-container">
+            <div class="employee-group-letter-container">
+              <p class="employee-group-letter" data-group-letter="${letter}"></p>
+            </div>
+            <div class="employee-group-listings">
+              <div class="employee-listing" data-group-letter="${letter}">
+                <a href="#" class="employee-name-link" data-employee-id="${employee_id}"> ${first_name} ${last_name} </a>
+              </div>
+            </div>
+          </div>
+        </div>
+    `;
+  }
+  console.log("letters are", letters);
 }
 
 async function fetchAllEmployees() {
