@@ -119,9 +119,7 @@ li {
   background: var(--color-black-alt);
 }
 
-.employee-group-letter::before {
-  display: block;
-  content: attr(data-group-letter);
+.employee-group-letter-container .employee-group-letter-text {
   color: var(--color-white-alt);
   font-size: 6rem;
   font-weight: 800;

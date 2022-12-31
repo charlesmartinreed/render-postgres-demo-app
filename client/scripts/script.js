@@ -35,27 +35,35 @@ function setupContainers(nameList) {
     new Set(nameList.map((n) => n.person_name.last_name.slice(0, 1)))
   );
 
+  for (let letter of letters) {
+    employeeResultDividerDiv.innerHTML += `
+    <div class="employee-search-results-container">
+          <div class="employee-group-container" id="employer-letter-${letter}">
+            <div class="employee-group-letter-container">
+              <p class="employee-group-letter-text">${letter}</p>
+            </div>
+          </div>
+        </div>
+        `;
+  }
+
+  const div = document.getElementById("e");
+
   for (let name of nameList) {
     let {
       person_name: { last_name, first_name },
       employee_id,
     } = name;
 
+    //   employeeResultDividerDiv.innerHTML += `
+    //   <div class="employee-group-listings">
+    //   <div class="employee-listing" data-group-letter="${letter}">
+    //     <a href="#" class="employee-name-link" data-employee-id="${employee_id}"> ${first_name} ${last_name} </a>
+    //   </div>
+    // </div>
+    //   `;
+
     let letter = last_name.slice(0, 1);
-    employeeResultDividerDiv.innerHTML += `
-    <div class="employee-search-results-container">
-          <div class="employee-group-container">
-            <div class="employee-group-letter-container">
-              <p class="employee-group-letter" data-group-letter="${letter}"></p>
-            </div>
-            <div class="employee-group-listings">
-              <div class="employee-listing" data-group-letter="${letter}">
-                <a href="#" class="employee-name-link" data-employee-id="${employee_id}"> ${first_name} ${last_name} </a>
-              </div>
-            </div>
-          </div>
-        </div>
-    `;
   }
   console.log("letters are", letters);
 }
