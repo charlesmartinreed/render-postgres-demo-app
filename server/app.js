@@ -141,4 +141,35 @@ app.listen(PORT, () =>
   console.log(`Success! API server now running on PORT #${PORT} `)
 );
 
-// console.log(generateRandomName(namePaths.Last));
+// const formatTextFile = (filePath) => {
+//   let currentContents;
+
+//   currentContents = fs.readFileSync(
+//     path.join(__dirname, "/datasets", filePath),
+//     "utf-8",
+//     (err, data) => {
+//       if (err) {
+//         console.error(err);
+//         return null;
+//       }
+//       return data;
+//     }
+//   );
+
+//   if (currentContents) {
+//     currentContents = currentContents
+//       .split(",")
+//       .map((n) => {
+//         return n.slice(0, 1).toUpperCase() + n.slice(1).toLowerCase();
+//       })
+//       .join(",");
+
+//     fs.writeFileSync(
+//       path.join(__dirname, "/datasets", filePath),
+//       currentContents
+//     );
+//   }
+// };
+
+
+console.log(generateRandomName(namePaths.Last));
