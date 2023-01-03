@@ -1,3 +1,6 @@
+const fs = require("fs");
+const path = require("path");
+
 const app = require("express")();
 const { v4: uuidv4 } = require("uuid");
 require("dotenv").config();
@@ -9,44 +12,74 @@ const CORS = require("cors");
 const testUser = process.env.ADMIN_USERNAME;
 const testPass = process.env.ADMIN_PASSWORD;
 
-const staticEmployeeData = [
-  {
-    person_name: { last_name: "Reed", first_name: "Charles" },
-    employee_id: uuidv4(),
-    department: "Engineering",
-    email_address: "charles@averyrealcompany.co",
-    phone_number: generateNewPhoneNumber(),
-    start_date: "7/01/2018",
-    last_updated_date: null,
-  },
-  {
-    person_name: { last_name: "Reed", first_name: "Martin" },
-    department: "QA",
-    employee_id: uuidv4(),
-    email_address: "martin@averyrealcompany.co",
-    phone_number: generateNewPhoneNumber(),
-    start_date: "6/15/2020",
-    last_updated_date: null,
-  },
-  {
-    person_name: { last_name: "Summer", first_name: "Donna" },
-    employee_id: uuidv4(),
-    department: "Executive",
-    email_address: "donna@averyrealcompany.co",
-    phone_number: generateNewPhoneNumber(),
-    start_date: "3/22/2013",
-    last_updated_date: null,
-  },
-  {
-    person_name: { last_name: "Lee", first_name: "Christopher" },
-    employee_id: uuidv4(),
-    department: "Human Resources",
-    email_address: "christopher@averyrealcompany.co",
-    phone_number: generateNewPhoneNumber(),
-    start_date: "7/01/2018",
-    last_updated_date: null,
-  },
-];
+const namePaths = {
+  First: "data-first-names.txt",
+  Last: "data-last-names.txt",
+};
+
+const generateRandomName = (namePath) => {
+  let basepath = path.join(__dirname, "/datasets");
+  let fullpath = path.join(basepath, namePath);
+
+  let names = fs
+    .readFileSync(fullpath, "utf-8", function (err, data) {
+      return data;
+    })
+    .split(",");
+
+  return names[Math.floor(Math.random() * (names.length - 1 - 0) + 0)];
+};
+
+// const staticEmployeeData = [
+//   {
+//     person_name: {
+//       last_name: generateRandomName(namePaths.Last),
+//       first_name: generateRandomName(namePaths.First),
+//     },
+//     employee_id: uuidv4(),
+//     department: "Engineering",
+//     email_address: "charles@averyrealcompany.co",
+//     phone_number: generateNewPhoneNumber(),
+//     start_date: "7/01/2018",
+//     last_updated_date: null,
+//   },
+//   {
+//     person_name: {
+//       last_name: generateRandomName(namePaths.Last),
+//       first_name: generateRandomName(namePaths.First),
+//     },
+//     department: "QA",
+//     employee_id: uuidv4(),
+//     email_address: "martin@averyrealcompany.co",
+//     phone_number: generateNewPhoneNumber(),
+//     start_date: "6/15/2020",
+//     last_updated_date: null,
+//   },
+//   {
+//     person_name: {
+//       last_name: generateRandomName(namePaths.Last),
+//       first_name: generateRandomName(namePaths.First),
+//     },
+//     employee_id: uuidv4(),
+//     department: "Executive",
+//     email_address: "donna@averyrealcompany.co",
+//     phone_number: generateNewPhoneNumber(),
+//     start_date: "3/22/2013",
+//     last_updated_date: null,
+//   },
+//   {
+//     person_name: {
+//       last_name: generateRandomName(namePaths.Last),
+//       first_name: generateRandomName(namePaths.First),
+//     },
+//     employee_id: uuidv4(),
+//     department: "Human Resources",
+//     email_address: "christopher@averyrealcompany.co",
+//     phone_number: generateNewPhoneNumber(),
+//     start_date: "7/01/2018",
+//     last_updated_date: null,
+//   },
+// ];
 
 app.use(CORS({ origin: "*" }));
 
@@ -90,8 +123,6 @@ function returnRandomPhoneNumberSegment(count, min = 0, max = 9) {
   return values;
 }
 
-generateNewPhoneNumber();
-
 app.get("/directory", (req, res) => {
   res.status(200).json(staticEmployeeData);
 });
@@ -109,3 +140,5 @@ app.get("/directory/:employeeID", (req, res) => {
 app.listen(PORT, () =>
   console.log(`Success! API server now running on PORT #${PORT} `)
 );
+
+// console.log(generateRandomName(namePaths.Last));
