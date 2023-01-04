@@ -1,34 +1,18 @@
-const fs = require("fs");
-const path = require("path");
+import fs from "fs";
+import path from "path";
+import express from "express";
 
-const app = require("express")();
-const { v4: uuidv4 } = require("uuid");
-require("dotenv").config();
+const app = express();
+import { v4 as uuidv4 } from "uuid";
 
-const auth = require("express-basic-auth");
+import * as dotenv from "dotenv";
+dotenv.config();
+
+import auth from "express-basic-auth";
+
 const PORT = process.env.SERVER_PORT || 7000;
-const CORS = require("cors");
-
 const testUser = process.env.ADMIN_USERNAME;
 const testPass = process.env.ADMIN_PASSWORD;
-
-const namePaths = {
-  First: "data-first-names.txt",
-  Last: "data-last-names.txt",
-};
-
-const generateRandomName = (namePath) => {
-  let basepath = path.join(__dirname, "/datasets");
-  let fullpath = path.join(basepath, namePath);
-
-  let names = fs
-    .readFileSync(fullpath, "utf-8", function (err, data) {
-      return data;
-    })
-    .split(",");
-
-  return names[Math.floor(Math.random() * (names.length - 1 - 0) + 0)];
-};
 
 // const staticEmployeeData = [
 //   {
@@ -80,8 +64,6 @@ const generateRandomName = (namePath) => {
 //     last_updated_date: null,
 //   },
 // ];
-
-app.use(CORS({ origin: "*" }));
 
 // IN THIS BASIC IMPLEMENTATION
 // USERNAMES AND PASSWORDS ARE DELEGATED BY SYSOP
@@ -170,6 +152,3 @@ app.listen(PORT, () =>
 //     );
 //   }
 // };
-
-
-console.log(generateRandomName(namePaths.Last));
