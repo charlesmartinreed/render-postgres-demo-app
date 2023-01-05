@@ -14,57 +14,6 @@ const PORT = process.env.SERVER_PORT || 7000;
 const testUser = process.env.ADMIN_USERNAME;
 const testPass = process.env.ADMIN_PASSWORD;
 
-// const staticEmployeeData = [
-//   {
-//     person_name: {
-//       last_name: generateRandomName(namePaths.Last),
-//       first_name: generateRandomName(namePaths.First),
-//     },
-//     employee_id: uuidv4(),
-//     department: "Engineering",
-//     email_address: "charles@averyrealcompany.co",
-//     phone_number: generateNewPhoneNumber(),
-//     start_date: "7/01/2018",
-//     last_updated_date: null,
-//   },
-//   {
-//     person_name: {
-//       last_name: generateRandomName(namePaths.Last),
-//       first_name: generateRandomName(namePaths.First),
-//     },
-//     department: "QA",
-//     employee_id: uuidv4(),
-//     email_address: "martin@averyrealcompany.co",
-//     phone_number: generateNewPhoneNumber(),
-//     start_date: "6/15/2020",
-//     last_updated_date: null,
-//   },
-//   {
-//     person_name: {
-//       last_name: generateRandomName(namePaths.Last),
-//       first_name: generateRandomName(namePaths.First),
-//     },
-//     employee_id: uuidv4(),
-//     department: "Executive",
-//     email_address: "donna@averyrealcompany.co",
-//     phone_number: generateNewPhoneNumber(),
-//     start_date: "3/22/2013",
-//     last_updated_date: null,
-//   },
-//   {
-//     person_name: {
-//       last_name: generateRandomName(namePaths.Last),
-//       first_name: generateRandomName(namePaths.First),
-//     },
-//     employee_id: uuidv4(),
-//     department: "Human Resources",
-//     email_address: "christopher@averyrealcompany.co",
-//     phone_number: generateNewPhoneNumber(),
-//     start_date: "7/01/2018",
-//     last_updated_date: null,
-//   },
-// ];
-
 // IN THIS BASIC IMPLEMENTATION
 // USERNAMES AND PASSWORDS ARE DELEGATED BY SYSOP
 // SO THE FRONT END WON'T ACTUALLY HAVE A SIGN UP
