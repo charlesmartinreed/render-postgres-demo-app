@@ -1,41 +1,23 @@
 // import { namePaths, generateRandomName } from "./utils.js";
 
 class Employee {
-  constructor(
-    person_name,
-    employee_id,
-    department,
-    email_address,
-    phone_number,
-    start_date,
-    last_updated_date
-  ) {
-    const {
-      person_name,
-      employee_id,
-      department,
-      email_address,
-      phone_number,
-      start_date,
-      last_updated_date,
-    } = this;
-  }
-}
+  #person_name = null;
+  #employee_id = null;
+  #department = null;
+  #email_address = null;
+  #phone_number = null;
+  #start_date = null;
+  #last_updated_date = null;
 
-const employeeList = [
-  new Employee(
-    { last_name: "mctesterson", first_name: "testy" },
-    122525252,
-    "merchandise",
-    "testy@averyrealcompany.co",
-    "111-222-3333",
-    Date(01 - 15 - 2015),
-    Date(06 - 30 - 2019)
-  ),
-];
+  // TODO LIST
 
-const createNewEmployee = () => {
-  // TODO
+  // REIMPLEMENT NAME GENERATOR
+  // REIMPLMEENT UUID ID GENERATOR
+  // CREATE FILE FOR DEPARTMENT LISTS
+  // CREATE METHOD TO GENERATE EMAIL ADDY FROM GENERATED NAME
+  // REIMPLEMENT PHONE NUMBER GENERATOR
+  // CREATE RANDOM START DATE GENERATOR
+  // CREATE SETTER TO SET LAST UPDATED DATE AS NEEDED
 }
 
 // export const staticEmployeeData = [
