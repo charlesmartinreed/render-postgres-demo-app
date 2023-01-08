@@ -2,6 +2,11 @@ import fs from "fs";
 import path from "path";
 import express from "express";
 
+import { Employee } from "./utils/people.js";
+
+// let testEmployee = new Employee();
+// console.log("name is", testEmployee.person_name);
+
 const app = express();
 import { v4 as uuidv4 } from "uuid";
 
