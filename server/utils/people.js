@@ -1,7 +1,6 @@
-import { namePaths, generateRandomName } from "./utils.js";
+import { namePaths, generateRandomName, generateEmployeeID } from "./utils.js";
 
 export class Employee {
-  #employee_id = null;
   #department = null;
   #email_address = null;
   #phone_number = null;
@@ -13,13 +12,17 @@ export class Employee {
     first: generateRandomName(namePaths.First),
   };
 
+  #employee_id = generateEmployeeID();
+
   get person_name() {
     return this.#person_name;
   }
 
-  // TODO LIST
+  get employee_id() {
+    return this.#employee_id;
+  }
 
-  // REIMPLMEENT UUID ID GENERATOR
+  // TODO LIST
   // CREATE FILE FOR DEPARTMENT LISTS
   // CREATE METHOD TO GENERATE EMAIL ADDY FROM GENERATED NAME
   // REIMPLEMENT PHONE NUMBER GENERATOR

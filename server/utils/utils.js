@@ -1,6 +1,7 @@
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
+import { v4 as uuid } from "uuid";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -23,6 +24,10 @@ export const generateRandomName = (namePath) => {
   // console.log("got names");
 
   return names[Math.floor(Math.random() * (names.length - 1 - 0) + 0)];
+};
+
+export const generateEmployeeID = () => {
+  return uuid();
 };
 
 // console.log(generateRandomName(namePaths.First));
