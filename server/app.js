@@ -7,6 +7,7 @@ import { Employee } from "./utils/people.js";
 let testEmployee = new Employee();
 console.log("name is", testEmployee.person_name);
 console.log("id is", testEmployee.employee_id);
+console.log("department is", testEmployee.employee_department);
 
 const app = express();
 

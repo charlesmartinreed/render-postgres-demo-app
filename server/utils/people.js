@@ -1,25 +1,31 @@
-import { namePaths, generateRandomName, generateEmployeeID } from "./utils.js";
+import {
+  generateEmployeeName,
+  generateEmployeeID,
+  generateEmployeeDepartment,
+} from "./utils.js";
 
 export class Employee {
-  #department = null;
   #email_address = null;
   #phone_number = null;
   #start_date = null;
   #last_updated_date = null;
 
-  #person_name = {
-    last: generateRandomName(namePaths.Last),
-    first: generateRandomName(namePaths.First),
-  };
-
+  #person_name = generateEmployeeName();
   #employee_id = generateEmployeeID();
+  #department = generateEmployeeDepartment();
 
   get person_name() {
-    return this.#person_name;
+    let { firstName, lastName } = this.#person_name;
+    return `${lastName}, ${firstName}`;
   }
 
   get employee_id() {
     return this.#employee_id;
+  }
+
+  get employee_department() {
+    let { department } = this.#department;
+    return `${department}`;
   }
 
   // TODO LIST
@@ -33,8 +39,8 @@ export class Employee {
 // export const staticEmployeeData = [
 //   {
 //     person_name: {
-//       last_name: generateRandomName(namePaths.Last),
-//       first_name: generateRandomName(namePaths.First),
+//       last_name: generateEmployeeName(namePaths.Last),
+//       first_name: generateEmployeeName(namePaths.First),
 //     },
 //     employee_id: uuidv4(),
 //     department: "Engineering",
@@ -45,8 +51,8 @@ export class Employee {
 //   },
 //   {
 //     person_name: {
-//       last_name: generateRandomName(namePaths.Last),
-//       first_name: generateRandomName(namePaths.First),
+//       last_name: generateEmployeeName(namePaths.Last),
+//       first_name: generateEmployeeName(namePaths.First),
 //     },
 //     department: "QA",
 //     employee_id: uuidv4(),
@@ -57,8 +63,8 @@ export class Employee {
 //   },
 //   {
 //     person_name: {
-//       last_name: generateRandomName(namePaths.Last),
-//       first_name: generateRandomName(namePaths.First),
+//       last_name: generateEmployeeName(namePaths.Last),
+//       first_name: generateEmployeeName(namePaths.First),
 //     },
 //     employee_id: uuidv4(),
 //     department: "Executive",
@@ -69,8 +75,8 @@ export class Employee {
 //   },
 //   {
 //     person_name: {
-//       last_name: generateRandomName(namePaths.Last),
-//       first_name: generateRandomName(namePaths.First),
+//       last_name: generateEmployeeName(namePaths.Last),
+//       first_name: generateEmployeeName(namePaths.First),
 //     },
 //     employee_id: uuidv4(),
 //     department: "Human Resources",
