@@ -5,7 +5,6 @@ import {
 } from "./utils.js";
 
 export class Employee {
-  #email_address = null;
   #phone_number = null;
   #start_date = null;
   #last_updated_date = null;
@@ -28,9 +27,20 @@ export class Employee {
     return `${department}`;
   }
 
+  #email_address = [
+    this.#person_name.lastName.toLowerCase(),
+    "_",
+    this.#person_name.firstName.toLowerCase(),
+    String(Math.floor(Math.random() * (999 - 1) + 1)),
+    "@",
+    "atotallyrealcompany.co",
+  ].join("");
+
+  get email_address() {
+    return this.#email_address;
+  }
+
   // TODO LIST
-  // CREATE FILE FOR DEPARTMENT LISTS
-  // CREATE METHOD TO GENERATE EMAIL ADDY FROM GENERATED NAME
   // REIMPLEMENT PHONE NUMBER GENERATOR
   // CREATE RANDOM START DATE GENERATOR
   // CREATE SETTER TO SET LAST UPDATED DATE AS NEEDED

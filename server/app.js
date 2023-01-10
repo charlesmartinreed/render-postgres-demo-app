@@ -8,6 +8,7 @@ let testEmployee = new Employee();
 console.log("name is", testEmployee.person_name);
 console.log("id is", testEmployee.employee_id);
 console.log("department is", testEmployee.employee_department);
+console.log("email address is", testEmployee.email_address);
 
 const app = express();
 
