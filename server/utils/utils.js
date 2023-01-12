@@ -53,3 +53,29 @@ export const generateEmployeeDepartment = () => {
 export const generateEmployeeID = () => {
   return uuid();
 };
+
+export const generateEmployeeContactNumber = (country) => {
+  let numberSegements = [
+    returnContactCNumberSegment(3),
+    returnContactCNumberSegment(3),
+    returnContactCNumberSegment(4),
+  ];
+
+  return numberSegements.map((group) => group.join("")).join("-");
+};
+
+const returnContactCNumberSegment = (count = 3, min = 0, max = 9) => {
+  // why expose a min and max value?
+  // area codes! Wouldn't want the area code to begin with a 0.
+  // And it's not terribly common to see any other segment begin with 0 in North America either.
+  let curSegment = [];
+
+  let curValue;
+
+  for (let i = 0; i < count; i++) {
+    curValue = Math.floor(Math.random() * (max - min) + min);
+    curSegment.push(curValue);
+  }
+
+  return curSegment;
+};

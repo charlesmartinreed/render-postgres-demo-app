@@ -2,10 +2,11 @@ import {
   generateEmployeeName,
   generateEmployeeID,
   generateEmployeeDepartment,
+  generateEmployeeContactNumber,
 } from "./utils.js";
 
 export class Employee {
-  #phone_number = null;
+  #country_of_residence = null;
   #start_date = null;
   #last_updated_date = null;
 
@@ -40,8 +41,13 @@ export class Employee {
     return this.#email_address;
   }
 
+  #contact_number = generateEmployeeContactNumber();
+
+  get contact_number() {
+    return this.#contact_number;
+  }
+
   // TODO LIST
-  // REIMPLEMENT PHONE NUMBER GENERATOR
   // CREATE RANDOM START DATE GENERATOR
   // CREATE SETTER TO SET LAST UPDATED DATE AS NEEDED
 }

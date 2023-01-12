@@ -9,6 +9,7 @@ console.log("name is", testEmployee.person_name);
 console.log("id is", testEmployee.employee_id);
 console.log("department is", testEmployee.employee_department);
 console.log("email address is", testEmployee.email_address);
+console.log("contact number is", testEmployee.contact_number);
 
 const app = express();
 
@@ -37,28 +38,6 @@ const authCheck = auth({
 
 function handleUnauthorized(req) {
   return JSON.stringify({ msg: "Access Denied" });
-}
-
-function generateNewPhoneNumber() {
-  let numberGroups = [
-    returnRandomPhoneNumberSegment(3),
-    returnRandomPhoneNumberSegment(3),
-    returnRandomPhoneNumberSegment(4),
-  ];
-
-  return numberGroups.map((group) => group.join("")).join("-");
-}
-
-function returnRandomPhoneNumberSegment(count, min = 0, max = 9) {
-  let values = [];
-  let value;
-
-  for (let i = 0; i < count; i++) {
-    value = Math.floor(Math.random() * (max - min) + min);
-    values.push(value);
-  }
-
-  return values;
 }
 
 app.get("/directory", (req, res) => {
