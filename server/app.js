@@ -9,7 +9,8 @@ console.log("name is", testEmployee.person_name);
 console.log("id is", testEmployee.employee_id);
 console.log("department is", testEmployee.employee_department);
 console.log("email address is", testEmployee.email_address);
-console.log("contact number is", testEmployee.contact_number);
+console.log("contact info is", testEmployee.contact_information);
+// console.log("current location is", testEmployee.country_of_residence);
 
 const app = express();
 

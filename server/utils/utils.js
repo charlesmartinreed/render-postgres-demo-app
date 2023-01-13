@@ -54,28 +54,56 @@ export const generateEmployeeID = () => {
   return uuid();
 };
 
-export const generateEmployeeContactNumber = (country) => {
-  let numberSegements = [
-    returnContactCNumberSegment(3),
-    returnContactCNumberSegment(3),
-    returnContactCNumberSegment(4),
+export const generateEmployeeCountryLocation = () => {
+  const countries = [
+    { countryName: "United Kingdom", countryCode: "44", areaCode: "151" },
+    { countryName: "Canada", countryCode: "1", areaCode: "263" },
+    { countryName: "Mexico", countryCode: "52", areaCode: "322" },
+    { countryName: "Israel", countryCode: "964", areaCode: "972" },
+    { countryName: "Germany", countryCode: "49", areaCode: "89" },
+    { countryName: "Japan", countryCode: "81", areaCode: "075" },
+    { countryName: "Italy", countryCode: "39", areaCode: "544" },
+    { countryName: "Hungary", countryCode: "36", areaCode: "1" },
+    { countryName: "Hong Kong", countryCode: "852", areaCode: null },
+    { countryName: "India", countryCode: "91", areaCode: "44" },
+    { countryName: "United States", countryCode: 1, areaCode: "214" },
+    { countryName: "France", countryCode: 33, areaCode: "696" },
+    { countryName: "South Korea", countryCode: "82", areaCode: "051" },
   ];
 
-  return numberSegements.map((group) => group.join("")).join("-");
+  return countries[Math.floor(Math.random() * (countries.length - 1 - 0) - 0)];
 };
 
-const returnContactCNumberSegment = (count = 3, min = 0, max = 9) => {
-  // why expose a min and max value?
-  // area codes! Wouldn't want the area code to begin with a 0.
-  // And it's not terribly common to see any other segment begin with 0 in North America either.
-  let curSegment = [];
+export const generateEmployeeContactInformation = () => {
+  function returnContactCNumberSegment(count = 3, min = 0, max = 9) {
+    // why expose a min and max value?
+    // area codes! Wouldn't want the area code to begin with a 0.
+    // And it's not terribly common to see any other segment begin with 0 in North America either.
+    let curSegment = [];
 
-  let curValue;
+    let curValue;
 
-  for (let i = 0; i < count; i++) {
-    curValue = Math.floor(Math.random() * (max - min) + min);
-    curSegment.push(curValue);
+    for (let i = 0; i < count; i++) {
+      curValue = Math.floor(Math.random() * (max - min) + min);
+      curSegment.push(curValue);
+    }
+
+    return curSegment;
   }
 
-  return curSegment;
+  let { countryName, countryCode, areaCode } =
+    generateEmployeeCountryLocation();
+
+  // of course, the number length should vary
+  // based upon a given country
+  // but even I have my limits :/
+  let contactNumber = [
+    ["+", countryCode, "-", areaCode ?? ""],
+    returnContactCNumberSegment(3),
+    returnContactCNumberSegment(4),
+  ]
+    .map((group) => group.join(""))
+    .join("-");
+
+  return { location: countryName, contactNumber };
 };
