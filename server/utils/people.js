@@ -3,10 +3,10 @@ import {
   generateEmployeeID,
   generateEmployeeDepartment,
   generateEmployeeContactInformation,
+  generateEmployeeStartDate,
 } from "./utils.js";
 
 export class Employee {
-  #start_date = null;
   #last_updated_date = null;
 
   #person_name = generateEmployeeName();
@@ -45,5 +45,11 @@ export class Employee {
   get contact_information() {
     let { location, contactNumber } = this.#contact_information;
     return `location is ${location} | phone number is ${contactNumber}`;
+  }
+
+  #start_date = generateEmployeeStartDate();
+
+  get start_date() {
+    return this.#start_date;
   }
 }

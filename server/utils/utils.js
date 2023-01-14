@@ -29,6 +29,19 @@ function parseCSVFromTXTFile(filePath) {
   return parsed.split(",");
 }
 
+function returnNumberSegment(size = 3, min = 0, max = 9) {
+  let curSegment = [];
+
+  let curValue;
+
+  for (let i = 0; i < size; i++) {
+    curValue = Math.floor(Math.random() * (max - min) + min);
+    curSegment.push(curValue);
+  }
+
+  return curSegment;
+}
+
 export const generateEmployeeName = () => {
   let firstNames = parseCSVFromTXTFile(filePaths.Names.First);
   let lastNames = parseCSVFromTXTFile(filePaths.Names.Last);
@@ -67,7 +80,7 @@ export const generateEmployeeCountryLocation = () => {
     { countryName: "Hong Kong", countryCode: "852", areaCode: null },
     { countryName: "India", countryCode: "91", areaCode: "44" },
     { countryName: "United States", countryCode: 1, areaCode: "214" },
-    { countryName: "France", countryCode: 33, areaCode: "696" },
+    { countryName: "France", countryCode: "33", areaCode: "696" },
     { countryName: "South Korea", countryCode: "82", areaCode: "051" },
   ];
 
@@ -75,22 +88,6 @@ export const generateEmployeeCountryLocation = () => {
 };
 
 export const generateEmployeeContactInformation = () => {
-  function returnContactCNumberSegment(count = 3, min = 0, max = 9) {
-    // why expose a min and max value?
-    // area codes! Wouldn't want the area code to begin with a 0.
-    // And it's not terribly common to see any other segment begin with 0 in North America either.
-    let curSegment = [];
-
-    let curValue;
-
-    for (let i = 0; i < count; i++) {
-      curValue = Math.floor(Math.random() * (max - min) + min);
-      curSegment.push(curValue);
-    }
-
-    return curSegment;
-  }
-
   let { countryName, countryCode, areaCode } =
     generateEmployeeCountryLocation();
 
@@ -99,11 +96,34 @@ export const generateEmployeeContactInformation = () => {
   // but even I have my limits :/
   let contactNumber = [
     ["+", countryCode, "-", areaCode ?? ""],
-    returnContactCNumberSegment(3),
-    returnContactCNumberSegment(4),
+    returnNumberSegment(3),
+    returnNumberSegment(4),
   ]
     .map((group) => group.join(""))
     .join("-");
 
   return { location: countryName, contactNumber };
 };
+
+export const generateEmployeeStartDate = () => {
+  let month = returnNumberSegment(1, 0, 12);
+  let date = returnNumberSegment(1, 0, 30);
+  let year = returnNumberSegment(1, 2000, 2023);
+
+  return dateComponentParser(month, date, year);
+
+  // return `year: ${year} | month: ${month} | date: ${date}`;
+};
+
+function dateComponentParser(...values) {
+  const startDate = new Date(Date.UTC(...arguments));
+  let { month, date, year, hours, seconds, ms } = values;
+
+  return month;
+
+  return new Intl.DateTimeFormat("en-us", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  }).format(startDate);
+}
