@@ -30,16 +30,13 @@ function parseCSVFromTXTFile(filePath) {
 }
 
 function returnNumberSegment(size = 3, min = 0, max = 9) {
-  let curSegment = [];
-
-  let curValue;
+  let curValue = "";
 
   for (let i = 0; i < size; i++) {
-    curValue = Math.floor(Math.random() * (max - min) + min);
-    curSegment.push(curValue);
+    curValue += Math.floor(Math.random() * (max - min) + min);
   }
 
-  return curSegment;
+  return curValue;
 }
 
 export const generateEmployeeName = () => {
@@ -95,31 +92,41 @@ export const generateEmployeeContactInformation = () => {
   // based upon a given country
   // but even I have my limits :/
   let contactNumber = [
-    ["+", countryCode, "-", areaCode ?? ""],
+    [`${"+"}${countryCode}${"-"}${areaCode ?? ""}`],
     returnNumberSegment(3),
     returnNumberSegment(4),
-  ]
-    .map((group) => group.join(""))
-    .join("-");
+  ].join("-");
 
   return { location: countryName, contactNumber };
 };
 
 export const generateEmployeeStartDate = () => {
   let month = returnNumberSegment(1, 0, 12);
-  let date = returnNumberSegment(1, 0, 30);
+
+  // if month codes are 0,2,4,6,7,9,11, return up to 31 days
+  // otherwise, return only 30
+  let dayCount = [0, 2, 4, 6, 7, 9, 11].includes(month) ? 31 : 30;
+
+  let date = returnNumberSegment(1, 1, dayCount);
   let year = returnNumberSegment(1, 2000, 2023);
 
-  return dateComponentParser(month, date, year);
-
-  // return `year: ${year} | month: ${month} | date: ${date}`;
+  return dateComponentParser(year, month, date);
 };
 
-function dateComponentParser(...values) {
-  const startDate = new Date(Date.UTC(...arguments));
-  let { month, date, year, hours, seconds, ms } = values;
+function dateComponentParser(
+  year,
+  month,
+  date,
+  hours = null,
+  minutes = null,
+  seconds = null,
+  ms = null
+) {
+  const startDate = new Date(
+    Date.UTC(year, month, date, hours, minutes, seconds, ms)
+  );
 
-  return month;
+  // return `year: ${year}, month: ${month}, date: ${date}`;
 
   return new Intl.DateTimeFormat("en-us", {
     year: "numeric",
