@@ -110,10 +110,11 @@ export const generateEmployeeStartDate = () => {
   let date = returnNumberSegment(1, 1, dayCount);
   let year = returnNumberSegment(1, 2000, 2023);
 
-  return dateComponentParser(year, month, date);
+  return dateComponentParser(false, year, month, date);
 };
 
 function dateComponentParser(
+  timestamp = false,
   year,
   month,
   date,
@@ -122,15 +123,17 @@ function dateComponentParser(
   seconds = null,
   ms = null
 ) {
-  const startDate = new Date(
+  const parsedDate = new Date(
     Date.UTC(year, month, date, hours, minutes, seconds, ms)
   );
 
-  // return `year: ${year}, month: ${month}, date: ${date}`;
+  if (timestamp) {
+    return parsedDate;
+  }
 
   return new Intl.DateTimeFormat("en-us", {
     year: "numeric",
     month: "long",
     day: "numeric",
-  }).format(startDate);
+  }).format(parsedDate);
 }
