@@ -40,15 +40,22 @@ function returnNumberSegment(size = 3, min = 0, max = 9) {
 }
 
 export const generateEmployeeName = () => {
-  let firstNames = parseCSVFromTXTFile(filePaths.Names.First);
-  let lastNames = parseCSVFromTXTFile(filePaths.Names.Last);
+  let firstNames = [],
+    lastNames = [];
 
-  return {
-    firstName:
-      firstNames[Math.floor(Math.random() * (firstNames.length - 1 - 0) + 0)],
-    lastName:
-      lastNames[Math.floor(Math.random() * (lastNames.length - 1 - 0) + 0)],
-  };
+  try {
+    firstNames = parseCSVFromTXTFile(filePaths.Names.First);
+    lastNames = parseCSVFromTXTFile(filePaths.Names.Last);
+
+    return {
+      firstName:
+        firstNames[Math.floor(Math.random() * (firstNames.length - 1 - 0) + 0)],
+      lastName:
+        lastNames[Math.floor(Math.random() * (lastNames.length - 1 - 0) + 0)],
+    };
+  } catch (e) {
+    throw new Error(e);
+  }
 };
 
 export const generateEmployeeDepartment = () => {
@@ -114,7 +121,7 @@ export const generateEmployeeStartDate = () => {
 };
 
 function dateComponentParser(
-  timestamp = false,
+  returnAsTimestamp = false,
   year,
   month,
   date,
@@ -127,9 +134,7 @@ function dateComponentParser(
     Date.UTC(year, month, date, hours, minutes, seconds, ms)
   );
 
-  if (timestamp) {
-    return parsedDate;
-  }
+  if (returnAsTimestamp) return parsedDate;
 
   return new Intl.DateTimeFormat("en-us", {
     year: "numeric",
