@@ -4,11 +4,10 @@ import {
   generateEmployeeDepartment,
   generateEmployeeContactInformation,
   generateEmployeeStartDate,
+  getLastUpdatedTimestamp,
 } from "./utils.js";
 
 export class Employee {
-  #last_updated_date = null;
-
   #person_name = generateEmployeeName();
   #employee_id = generateEmployeeID();
   #department = generateEmployeeDepartment();
@@ -48,8 +47,15 @@ export class Employee {
   }
 
   #start_date = generateEmployeeStartDate();
+  #last_updated_date = getLastUpdatedTimestamp(this.#employee_id);
 
   get start_date() {
     return this.#start_date;
   }
+
+  get last_update_date() {
+    return this.#last_updated_date;
+  }
+
+  get employee_summary() {}
 }

@@ -5,12 +5,16 @@ import express from "express";
 import { Employee } from "./utils/people.js";
 
 let testEmployee = new Employee();
+// console.log("employee object", testEmployee);
 console.log("name is", testEmployee.person_name);
 console.log("id is", testEmployee.employee_id);
 console.log("department is", testEmployee.employee_department);
 console.log("email address is", testEmployee.email_address);
 console.log("contact info is", testEmployee.contact_information);
 console.log("start date is", testEmployee.start_date);
+console.log("last updated date is", testEmployee.last_update_date);
+
+// let dummyEmployeeList = Array(5).fill(new Employee());
 // console.log("current location is", testEmployee.country_of_residence);
 
 const app = express();
@@ -43,13 +47,13 @@ function handleUnauthorized(req) {
 }
 
 app.get("/directory", (req, res) => {
-  res.status(200).json(staticEmployeeData);
+  res.status(200).json(dummyEmployeeList);
 });
 
 app.get("/directory/:employeeID", (req, res) => {
   let nameParam = req.params.employeeID;
 
-  let result = staticEmployeeData.filter(
+  let result = dummyEmployeeList.filter(
     (person) => person.employee_id === nameParam
   );
 

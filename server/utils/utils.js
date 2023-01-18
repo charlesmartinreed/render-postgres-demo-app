@@ -107,17 +107,30 @@ export const generateEmployeeContactInformation = () => {
   return { location: countryName, contactNumber };
 };
 
-export const generateEmployeeStartDate = () => {
+const generateRandomDateValues = () => {
   let month = returnNumberSegment(1, 0, 12);
 
-  // if month codes are 0,2,4,6,7,9,11, return up to 31 days
-  // otherwise, return only 30
   let dayCount = [0, 2, 4, 6, 7, 9, 11].includes(month) ? 31 : 30;
-
   let date = returnNumberSegment(1, 1, dayCount);
   let year = returnNumberSegment(1, 2000, 2023);
 
+  return { month, date, year };
+};
+
+export const generateEmployeeStartDate = () => {
+  let { year, month, date } = generateRandomDateValues();
+
   return dateComponentParser(false, year, month, date);
+};
+
+export const getLastUpdatedTimestamp = (employee_id) => {
+  // obviously these timestamps would normally come
+  // from the database itself
+  // but since that hasn't been added yet...
+
+  let { year, month, date } = generateRandomDateValues();
+
+  return dateComponentParser(true, year, month, date);
 };
 
 function dateComponentParser(
