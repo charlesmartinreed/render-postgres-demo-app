@@ -15,6 +15,8 @@ const filePaths = {
   },
 };
 
+// FUNCTIONS -- INTERNAL
+
 function parseCSVFromTXTFile(filePath) {
   let localFile = path.join(__dirname, "../datasets", filePath);
 
@@ -39,6 +41,40 @@ function returnNumberSegment(size = 3, min = 0, max = 9) {
   return curValue;
 }
 
+function returnRandomDateValues() {
+  let month = returnNumberSegment(1, 0, 12);
+
+  let dayCount = [0, 2, 4, 6, 7, 9, 11].includes(month) ? 31 : 30;
+  let date = returnNumberSegment(1, 1, dayCount);
+  let year = returnNumberSegment(1, 2000, 2023);
+
+  return { month, date, year };
+}
+
+function dateComponentParser(
+  returnAsTimestamp = false,
+  year,
+  month,
+  date,
+  hours = null,
+  minutes = null,
+  seconds = null,
+  ms = null
+) {
+  const parsedDate = new Date(
+    Date.UTC(year, month, date, hours, minutes, seconds, ms)
+  );
+
+  if (returnAsTimestamp) return parsedDate;
+
+  return new Intl.DateTimeFormat("en-us", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  }).format(parsedDate);
+}
+
+// FUNCITONS -- EXPORTABLES
 export const generateEmployeeName = () => {
   let firstNames = [],
     lastNames = [];
@@ -107,18 +143,8 @@ export const generateEmployeeContactInformation = () => {
   return { location: countryName, contactNumber };
 };
 
-const generateRandomDateValues = () => {
-  let month = returnNumberSegment(1, 0, 12);
-
-  let dayCount = [0, 2, 4, 6, 7, 9, 11].includes(month) ? 31 : 30;
-  let date = returnNumberSegment(1, 1, dayCount);
-  let year = returnNumberSegment(1, 2000, 2023);
-
-  return { month, date, year };
-};
-
 export const generateEmployeeStartDate = () => {
-  let { year, month, date } = generateRandomDateValues();
+  let { year, month, date } = returnRandomDateValues;
 
   return dateComponentParser(false, year, month, date);
 };
@@ -128,30 +154,7 @@ export const getLastUpdatedTimestamp = (employee_id) => {
   // from the database itself
   // but since that hasn't been added yet...
 
-  let { year, month, date } = generateRandomDateValues();
+  let { year, month, date } = returnRandomDateValues;
 
   return dateComponentParser(true, year, month, date);
 };
-
-function dateComponentParser(
-  returnAsTimestamp = false,
-  year,
-  month,
-  date,
-  hours = null,
-  minutes = null,
-  seconds = null,
-  ms = null
-) {
-  const parsedDate = new Date(
-    Date.UTC(year, month, date, hours, minutes, seconds, ms)
-  );
-
-  if (returnAsTimestamp) return parsedDate;
-
-  return new Intl.DateTimeFormat("en-us", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  }).format(parsedDate);
-}
