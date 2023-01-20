@@ -2,6 +2,7 @@ import {
   generateEmployeeName,
   generateEmployeeID,
   generateEmployeeDepartment,
+  generateEmployeeEmail,
   generateEmployeeContactInformation,
   generateEmployeeStartDate,
   getLastUpdatedTimestamp,
@@ -9,31 +10,23 @@ import {
 
 export class Employee {
   #person_name = generateEmployeeName();
-  #employee_id = generateEmployeeID();
-  #department = generateEmployeeDepartment();
-
   get person_name() {
     let { firstName, lastName } = this.#person_name;
     return `${lastName}, ${firstName}`;
   }
 
+  #employee_id = generateEmployeeID();
   get employee_id() {
     return this.#employee_id;
   }
 
+  #department = generateEmployeeDepartment();
   get employee_department() {
     let { department } = this.#department;
     return `${department}`;
   }
 
-  #email_address = [
-    this.#person_name.lastName.toLowerCase(),
-    "_",
-    this.#person_name.firstName.toLowerCase(),
-    String(Math.floor(Math.random() * (999 - 1) + 1)),
-    "@",
-    "atotallyrealcompany.co",
-  ].join("");
+  #email_address = generateEmployeeEmail(this.#person_name);
 
   get email_address() {
     return this.#email_address;
@@ -56,8 +49,4 @@ export class Employee {
   get last_update_date() {
     return this.#last_updated_date;
   }
-
-  get employee_summary() {}
-
-  
 }

@@ -61,7 +61,7 @@ function dateComponentParser(
   seconds = null,
   ms = null
 ) {
-  const parsedDate = new Date(
+  let parsedDate = new Date(
     Date.UTC(year, month, date, hours, minutes, seconds, ms)
   );
 
@@ -107,6 +107,29 @@ export const generateEmployeeID = () => {
   return uuid();
 };
 
+// [
+//   this.#person_name.lastName.toLowerCase(),
+//   "_",
+//   this.#person_name.firstName.toLowerCase(),
+//   String(Math.floor(Math.random() * (999 - 1) + 1)),
+//   "@",
+//   "atotallyrealcompany.co",
+// ].join("");
+
+export const generateEmployeeEmail = (employee_name) => {
+  let { firstName, lastName } = employee_name;
+  let email_address = [
+    lastName.toLowerCase(),
+    "_",
+    firstName.toLowerCase(),
+    String(Math.floor(Math.random() * (999 - 1) + 1)),
+    "@",
+    "atotallyrealcompany.com",
+  ].join("");
+
+  return email_address;
+};
+
 export const generateEmployeeCountryLocation = () => {
   const countries = [
     { countryName: "United Kingdom", countryCode: "44", areaCode: "151" },
@@ -146,6 +169,7 @@ export const generateEmployeeContactInformation = () => {
 export const generateEmployeeStartDate = () => {
   let { year, month, date } = returnRandomDateValues;
 
+  return "test";
   return dateComponentParser(false, year, month, date);
 };
 
@@ -156,5 +180,6 @@ export const getLastUpdatedTimestamp = (employee_id) => {
 
   let { year, month, date } = returnRandomDateValues;
 
+  return "test";
   return dateComponentParser(true, year, month, date);
 };
