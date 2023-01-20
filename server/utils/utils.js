@@ -107,15 +107,6 @@ export const generateEmployeeID = () => {
   return uuid();
 };
 
-// [
-//   this.#person_name.lastName.toLowerCase(),
-//   "_",
-//   this.#person_name.firstName.toLowerCase(),
-//   String(Math.floor(Math.random() * (999 - 1) + 1)),
-//   "@",
-//   "atotallyrealcompany.co",
-// ].join("");
-
 export const generateEmployeeEmail = (employee_name) => {
   let { firstName, lastName } = employee_name;
   let email_address = [
@@ -167,9 +158,8 @@ export const generateEmployeeContactInformation = () => {
 };
 
 export const generateEmployeeStartDate = () => {
-  let { year, month, date } = returnRandomDateValues;
+  let { year, month, date } = returnRandomDateValues();
 
-  return "test";
   return dateComponentParser(false, year, month, date);
 };
 
@@ -178,8 +168,7 @@ export const getLastUpdatedTimestamp = (employee_id) => {
   // from the database itself
   // but since that hasn't been added yet...
 
-  let { year, month, date } = returnRandomDateValues;
+  let { year, month, date } = returnRandomDateValues();
 
-  return "test";
   return dateComponentParser(true, year, month, date);
 };
