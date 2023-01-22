@@ -40,11 +40,15 @@ export class Employee {
   }
 
   #start_date = generateEmployeeStartDate();
-  #last_updated_date = getLastUpdatedTimestamp(this.#employee_id);
 
   get start_date() {
     return this.#start_date;
   }
+
+  #last_updated_date = getLastUpdatedTimestamp(
+    this.#employee_id,
+    this.#start_date
+  );
 
   get last_update_date() {
     return this.#last_updated_date;

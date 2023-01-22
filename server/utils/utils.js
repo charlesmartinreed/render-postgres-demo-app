@@ -41,12 +41,12 @@ function returnNumberSegment(size = 3, min = 0, max = 9) {
   return curValue;
 }
 
-function returnRandomDateValues() {
+function returnRandomDateValues(earliestYear = 2000, latestFullYear = 2022) {
   let month = returnNumberSegment(1, 0, 12);
 
   let dayCount = [0, 2, 4, 6, 7, 9, 11].includes(month) ? 31 : 30;
   let date = returnNumberSegment(1, 1, dayCount);
-  let year = returnNumberSegment(1, 2000, 2023);
+  let year = returnNumberSegment(1, earliestYear, latestFullYear);
 
   return { month, date, year };
 }
@@ -163,12 +163,14 @@ export const generateEmployeeStartDate = () => {
   return dateComponentParser(false, year, month, date);
 };
 
-export const getLastUpdatedTimestamp = (employee_id) => {
+export const getLastUpdatedTimestamp = (employee_id, start_date) => {
   // obviously these timestamps would normally come
   // from the database itself
   // but since that hasn't been added yet...
+  let start_date_values = start_date.split(" ");
+  let start_year = Number(start_date_values[start_date_values.length - 1]);
 
-  let { year, month, date } = returnRandomDateValues();
+  let { year, month, date } = returnRandomDateValues(start_year);
 
   return dateComponentParser(true, year, month, date);
 };
