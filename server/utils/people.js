@@ -27,20 +27,17 @@ export class Employee {
   }
 
   #email_address = generateEmployeeEmail(this.#person_name);
-
   get email_address() {
     return this.#email_address;
   }
 
   #contact_information = generateEmployeeContactInformation();
-
   get contact_information() {
     let { location, contactNumber } = this.#contact_information;
     return `location is ${location} | phone number is ${contactNumber}`;
   }
 
   #start_date = generateEmployeeStartDate();
-
   get start_date() {
     return this.#start_date;
   }
@@ -49,8 +46,9 @@ export class Employee {
     this.#employee_id,
     this.#start_date
   );
-
   get last_update_date() {
     return this.#last_updated_date;
   }
+
+  
 }

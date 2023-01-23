@@ -31,8 +31,18 @@ function parseCSVFromTXTFile(filePath) {
   return parsed.split(",");
 }
 
+/**
+ *
+ * @param {Number} [size] - Optional argument: Sets the number of digits in returned number.
+ * @param {Number} [min] - Optional argument: Sets minimum digit value for the random number generator, between 0 and 9.
+ * @param {Number} [max] - Optional argument: Sets maximum digit value for the random number generator, between 0 and 9.
+ * @returns curValue - Randomized Number value.
+ */
 function returnNumberSegment(size = 3, min = 0, max = 9) {
   let curValue = "";
+
+  if (min < 0) min = 0;
+  if (max > 9) max = 9;
 
   for (let i = 0; i < size; i++) {
     curValue += Math.floor(Math.random() * (max - min) + min);
