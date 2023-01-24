@@ -51,6 +51,12 @@ function returnNumberSegment(size = 3, min = 0, max = 9) {
   return curValue;
 }
 
+/**
+ *
+ * @param {Number} [earliestYear] - Optional argument: lower bound for random year generator, default value is set to 2000.
+ * @param {Number} [latestFullYear] - Optional argument: upper bound for random year generator, default value is set to 2022.
+ * @returns - object containing three Number values, representing the generated Month, Date and Year, respectively
+ */
 function returnRandomDateValues(earliestYear = 2000, latestFullYear = 2022) {
   let month = returnNumberSegment(1, 0, 12);
 
@@ -61,6 +67,18 @@ function returnRandomDateValues(earliestYear = 2000, latestFullYear = 2022) {
   return { month, date, year };
 }
 
+/**
+ *
+ * @param {Boolean} [returnAsTimestamp] - Optional argument: If true, returns the unformatted timestamp for the date passed into this function. If false, returns the formmated timestamp for the date passed into this function.
+ * @param {Number} [year]
+ * @param {Number} [month]
+ * @param {Number} [date]
+ * @param {Number} [hours] - Optional argument: Sets the number of hours reflected in the returned timestamp.
+ * @param {*} [minutes]  - Optional argument: Sets the number of minutes reflected in the returned timestamp.
+ * @param {*} [seconds]  - Optional argument: Sets the number of seconds reflected in the returned timestamp.
+ * @param {*} [ms] - Optional argument: Sets the number of milliseconds reflected in the returned timestamp.
+ * @returns {Date | DateTimeFormat} - If returnAsTimestamp is true, an unformatted Date object is returned. If returneAsTimestamp is false, a DateTimeFormat object is returned, with options 'numeric' year, 'long' month and 'numeric' day.
+ */
 function dateComponentParser(
   returnAsTimestamp = false,
   year,
