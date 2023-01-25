@@ -4,18 +4,22 @@ import express from "express";
 
 import { Employee } from "./utils/people.js";
 
-let testEmployee = new Employee();
-// console.log("employee object", testEmployee);
-console.log("name is", testEmployee.person_name);
-console.log("id is", testEmployee.employee_id);
-console.log("department is", testEmployee.employee_department);
-console.log("email address is", testEmployee.email_address);
-console.log("contact info is", testEmployee.contact_information);
-console.log("start date is", testEmployee.start_date);
-console.log("last updated date is", testEmployee.last_update_date);
+const dbIsInitialized = false;
 
-// let dummyEmployeeList = Array(5).fill(new Employee());
-// console.log("current location is", testEmployee.country_of_residence);
+function updateEmployeeListInDB() {
+  // for testing purposes only, as opposed to manual entry
+  // first check that the DB is empty
+  // if empty, generate a collection of Employees and save to DB
+  if (!dbIsInitialized) {
+    let employees = [];
+    for (let i = 0; i < 10; i++) employees.push(new Employee());
+    employees.forEach((employee) => console.log(employee.person_name));
+  }
+
+  if (dbIsInitialized) {
+    console.log("db contains existing data");
+  }
+}
 
 const app = express();
 
@@ -23,6 +27,7 @@ import * as dotenv from "dotenv";
 dotenv.config();
 
 import auth from "express-basic-auth";
+import e from "express";
 
 const PORT = process.env.SERVER_PORT || 7000;
 const testUser = process.env.ADMIN_USERNAME;
@@ -60,36 +65,8 @@ app.get("/directory/:employeeID", (req, res) => {
   res.status(200).json(result);
 });
 
+updateEmployeeListInDB();
+
 app.listen(PORT, () =>
   console.log(`Success! API server now running on PORT #${PORT} `)
 );
-
-// const formatTextFile = (filePath) => {
-//   let currentContents;
-
-//   currentContents = fs.readFileSync(
-//     path.join(__dirname, "/datasets", filePath),
-//     "utf-8",
-//     (err, data) => {
-//       if (err) {
-//         console.error(err);
-//         return null;
-//       }
-//       return data;
-//     }
-//   );
-
-//   if (currentContents) {
-//     currentContents = currentContents
-//       .split(",")
-//       .map((n) => {
-//         return n.slice(0, 1).toUpperCase() + n.slice(1).toLowerCase();
-//       })
-//       .join(",");
-
-//     fs.writeFileSync(
-//       path.join(__dirname, "/datasets", filePath),
-//       currentContents
-//     );
-//   }
-// };

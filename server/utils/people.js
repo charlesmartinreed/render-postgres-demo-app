@@ -49,6 +49,4 @@ export class Employee {
   get last_update_date() {
     return this.#last_updated_date;
   }
-
-  
 }
