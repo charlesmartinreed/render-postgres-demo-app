@@ -16,8 +16,12 @@ const filePaths = {
 };
 
 // FUNCTIONS -- INTERNAL
-
-function parseCSVFromTXTFile(filePath) {
+/**
+ *
+ * @param {String} filePath - See the filePaths object for valid options.
+ * @returns
+ */
+const parseCSVFromTXTFile = (filePath) => {
   let localFile = path.join(__dirname, "../datasets", filePath);
 
   let parsed = fs.readFileSync(localFile, "utf-8", (err, data) => {
@@ -29,7 +33,7 @@ function parseCSVFromTXTFile(filePath) {
   });
 
   return parsed.split(",");
-}
+};
 
 /**
  *
@@ -38,7 +42,7 @@ function parseCSVFromTXTFile(filePath) {
  * @param {Number} [max] - Optional argument: Sets maximum digit value for the random number generator, between 0 and 9.
  * @returns curValue - Randomized Number value.
  */
-function returnNumberSegment(size = 3, min = 0, max = 9) {
+const returnNumberSegment = (size = 3, min = 0, max = 9) => {
   let curValue = "";
 
   if (min < 0) min = 0;
@@ -49,7 +53,7 @@ function returnNumberSegment(size = 3, min = 0, max = 9) {
   }
 
   return curValue;
-}
+};
 
 /**
  *
@@ -57,7 +61,7 @@ function returnNumberSegment(size = 3, min = 0, max = 9) {
  * @param {Number} [latestFullYear] - Optional argument: upper bound for random year generator, default value is set to 2022.
  * @returns - object containing three Number values, representing the generated Month, Date and Year, respectively
  */
-function returnRandomDateValues(earliestYear = 2000, latestFullYear = 2022) {
+const returnRandomDateValues = (earliestYear = 2000, latestFullYear = 2022) => {
   let month = returnNumberSegment(1, 0, 12);
 
   let dayCount = [0, 2, 4, 6, 7, 9, 11].includes(month) ? 31 : 30;
@@ -65,7 +69,7 @@ function returnRandomDateValues(earliestYear = 2000, latestFullYear = 2022) {
   let year = returnNumberSegment(1, earliestYear, latestFullYear);
 
   return { month, date, year };
-}
+};
 
 /**
  *
@@ -79,7 +83,7 @@ function returnRandomDateValues(earliestYear = 2000, latestFullYear = 2022) {
  * @param {*} [ms] - Optional argument: Sets the number of milliseconds reflected in the returned timestamp.
  * @returns {Date | DateTimeFormat} - If returnAsTimestamp is true, an unformatted Date object is returned. If returneAsTimestamp is false, a DateTimeFormat object is returned, with options 'numeric' year, 'long' month and 'numeric' day.
  */
-function dateComponentParser(
+const dateComponentParser = (
   returnAsTimestamp = false,
   year,
   month,
@@ -88,7 +92,7 @@ function dateComponentParser(
   minutes = null,
   seconds = null,
   ms = null
-) {
+) => {
   let parsedDate = new Date(
     Date.UTC(year, month, date, hours, minutes, seconds, ms)
   );
@@ -100,7 +104,7 @@ function dateComponentParser(
     month: "long",
     day: "numeric",
   }).format(parsedDate);
-}
+};
 
 // FUNCITONS -- EXPORTABLES
 export const generateEmployeeName = () => {
