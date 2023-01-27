@@ -13,59 +13,59 @@ const employeeResultDividerDiv = document.querySelector(
 
 const employeeSearchInput = document.querySelector("#input-employee-search");
 const inputForUsername = document.querySelector("#login-username");
-const inputForPass = document.querySelector("#login-password");
-
+const passwordInputEl = document.querySelector("#login-password");
 const loginModal = document.querySelector("#login-modal");
 
 const baseRemoteURL = "http://localhost:7000";
 
 async function init() {
-  let names = await fetchAllEmployees();
+  let employeeList = await fetchAllEmployees();
 
-  if (names) {
+  if (employeeList) {
     // console.log("all names", names);
-    setupContainers(names);
+    setupContainers(employeeList);
   }
 }
 
-function setupContainers(nameList) {
-  console.log("names", nameList);
-
-  let letters = Array.from(
-    new Set(nameList.map((n) => n.person_name.last_name.slice(0, 1)))
-  );
-
-  for (let letter of letters) {
-    employeeResultDividerDiv.innerHTML += `
-    <div class="employee-search-results-container">
-          <div class="employee-group-container" id="employer-letter-${letter}">
-            <div class="employee-group-letter-container">
-              <p class="employee-group-letter-text">${letter}</p>
-            </div>
-          </div>
-        </div>
-        `;
+function setupContainers(employees) {
+  for (const [k, v] of Object.entries(employees)) {
+    console.log(k, v);
   }
+  // let letters = Array.from(
+  //   new Set(nameList.map((n) => n.person_name.last_name.slice(0, 1)))
+  // );
 
-  const div = document.getElementById("e");
+  // for (let letter of letters) {
+  //   employeeResultDividerDiv.innerHTML += `
+  //   <div class="employee-search-results-container">
+  //         <div class="employee-group-container" id="employer-letter-${letter}">
+  //           <div class="employee-group-letter-container">
+  //             <p class="employee-group-letter-text">${letter}</p>
+  //           </div>
+  //         </div>
+  //       </div>
+  //       `;
+  // }
 
-  for (let name of nameList) {
-    let {
-      person_name: { last_name, first_name },
-      employee_id,
-    } = name;
+  // const div = document.getElementById("e");
 
-    //   employeeResultDividerDiv.innerHTML += `
-    //   <div class="employee-group-listings">
-    //   <div class="employee-listing" data-group-letter="${letter}">
-    //     <a href="#" class="employee-name-link" data-employee-id="${employee_id}"> ${first_name} ${last_name} </a>
-    //   </div>
-    // </div>
-    //   `;
+  // for (let name of nameList) {
+  //   let {
+  //     person_name: { last_name, first_name },
+  //     employee_id,
+  //   } = name;
 
-    let letter = last_name.slice(0, 1);
-  }
-  console.log("letters are", letters);
+  //   employeeResultDividerDiv.innerHTML += `
+  //   <div class="employee-group-listings">
+  //   <div class="employee-listing" data-group-letter="${letter}">
+  //     <a href="#" class="employee-name-link" data-employee-id="${employee_id}"> ${first_name} ${last_name} </a>
+  //   </div>
+  // </div>
+  //   `;
+
+  // let letter = last_name.slice(0, 1);
+  // }
+  // console.log("letters are", letters);
 }
 
 async function fetchAllEmployees() {
@@ -174,7 +174,7 @@ function toggleModal(modal) {
 
 btnLoginSubmit.addEventListener("click", async (e) => {
   let username = inputForUsername.value;
-  let password = inputForPass.value;
+  let password = passwordInputEl.value;
 
   if (username === "" || password === "") return;
 
